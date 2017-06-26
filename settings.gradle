@@ -1,1 +1,2 @@
-include ':demoOpenLibAndroid', ':libOpenAndroid'
+include ':demoOpenLibAndroid'
+include ':libOpenAndroid'
