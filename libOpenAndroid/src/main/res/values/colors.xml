@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="bg_color_transparent_light">#a0ffffff</color>
+    <color name="bg_color_transparent_light2">#7fbebebe</color>
+    <color name="bg_color_transparent_dark0">#a0000000</color>
+    <color name="bg_color_transparent_dark1">#c0000000</color>
+    <color name="bg_color_transparent_dark2">#70000000</color>
+
+    <color name="my_color_black">#ff000000</color>
+    <color name="my_color_dark1">#ff101010</color>
+    <color name="my_color_dark2">#ff000000</color>
+    <color name="my_color_dark3">#ff1E1E1E</color>
+    <color name="my_color_dark4">#ff2f2f2f</color>
+	<color name="my_color_dark5">#ff383838</color>
+	<color name="my_color_dark6">#ff464646</color>
+	<color name="my_color_dark7">#ff85837c</color>
+    <color name="my_color_dark1_transparent">#a0101010</color>
+    <color name="my_color_dark2_transparent">#a0000000</color>
+    <color name="my_color_light1">#ffDBDBDB</color>
+    <color name="my_color_light2">#ffffffff</color>
+    <color name="my_color_light3">#fffff9e9</color>
+    <color name="my_color_light4">#ffebe7dc</color>
+    <color name="my_color_light1_transparent">#d0DBDBDB</color>
+    <color name="my_color_light2_transparent">#d0ffffff</color>
+    
+    <color name="my_color_gray1">#ff888888</color>
+    <color name="my_color_gray_transparent">#00777777</color>
+
+    <color name="croutonMsg">#FFFFC40A</color>
+
+</resources>
