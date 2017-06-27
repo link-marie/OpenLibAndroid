@@ -1,6 +1,18 @@
 package com.linknext.libopen;
 
+import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
+import android.app.Activity;
+import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.os.Build;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Display;
+import android.view.WindowManager;
 
 /**
  * Utility methods
@@ -246,6 +258,126 @@ public class Utl {
             }
         }
         return callerNames;
+    }
+
+    static public boolean hasNavBar( Resources resources ) {
+        int id = resources.getIdentifier( "config_showNavigationBar", "bool", "android" );
+        if( id > 0 ) {
+            return resources.getBoolean( id );
+        }
+        else {
+            return false;
+        }
+    }
+
+    static public int getNavigationBarHeight( Resources resources ) {
+        if( !hasNavBar( resources ) ) {
+            return 0;
+        }
+
+        int orientation = resources.getConfiguration().orientation;
+        // Only phone between 0 - 599 has navigationbar can move
+        boolean isSmartphone = resources.getConfiguration().smallestScreenWidthDp < 600;
+        if( isSmartphone && Configuration.ORIENTATION_LANDSCAPE == orientation ) {
+            return 0;
+        }
+
+        int id = resources.getIdentifier( orientation == Configuration.ORIENTATION_PORTRAIT ? "navigation_bar_height" : "navigation_bar_height_landscape", "dimen", "android" );
+        if( id > 0 ) {
+            return resources.getDimensionPixelSize( id );
+        }
+
+        return 0;
+    }
+
+    static public boolean isTranslucentNavigation( Activity activity ) {
+        if( Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT ) {
+            return false;
+        }
+        int flags = activity.getWindow().getAttributes().flags;
+        int result = flags&android.view.WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION;
+        if( result == 0 ) {
+            return false;
+        }
+        return true;
+    }
+
+    static public DisplayMetrics getDisplayMetrics( Context ctx ) {
+        WindowManager windowManager = (WindowManager)ctx.getSystemService( Context.WINDOW_SERVICE );
+        Display display = windowManager.getDefaultDisplay();
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        display.getMetrics( displayMetrics );
+        return displayMetrics;
+    }
+
+    static public float px2dp( Context ctx, int px ) {
+        float density = getDensity( ctx );
+        float dp = px/density + 0.5f;
+        return dp;
+    }
+
+    static public float getDensity( Context ctx ) {
+        float density = ctx.getResources().getDisplayMetrics().density;
+        return density;
+    }
+
+    @SuppressWarnings("deprecation")
+    @SuppressLint("NewApi")
+    static public int getColor( Context ctx, int id ) {
+
+        int col = 888888;
+        if( ctx == null ) {
+            return col;
+        }
+        if( Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M ) {
+            col = ctx.getColor( id );
+        }
+        else {
+            Resources res = ctx.getResources();
+            if( res == null ) {
+                return col;
+            }
+            col = res.getColor( id );
+        }
+
+        return col;
+    }
+
+    static public int getVersionCode( Context ctx ) {
+        String lPackageName = ctx.getPackageName();
+
+        int i = -1;
+        try {
+            PackageInfo pi = ctx.getPackageManager().getPackageInfo( lPackageName, PackageManager.GET_META_DATA );
+            i = pi.versionCode;
+        }
+        catch( PackageManager.NameNotFoundException e ) {
+            e.printStackTrace();
+        }
+
+        return i;
+    }
+
+    static public String getResStr( Context ctx, int resId ) {
+        return ctx.getResources().getString( resId );
+    }
+
+    static public String getResStr( Context ctx, int resId, String arg1 ) {
+        return ctx.getResources().getString( resId, arg1 );
+    }
+
+    static public String getResStr( Context ctx, int resId, String arg1, String arg2 ) {
+        return ctx.getResources().getString( resId, arg1, arg2 );
+    }
+
+    @TargetApi(Build.VERSION_CODES.KITKAT)
+    static public boolean setTranslucentNavitation( Activity activity ) {
+        boolean ret = false;
+        if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT ) {
+            activity.getWindow().addFlags( android.view.WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION );
+            ret = true;
+        }
+        return ret;
     }
 
 

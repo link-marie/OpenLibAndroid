@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">libOpenAndroid</string>
+
+    <string name="labelTest">Test</string>
+    <string name="labelSkip">Skip</string>
+    <string name="labelSearch">Search</string>
+
+    <string name="dont_show_me_again">Don\'t show me again</string>
+
 </resources>
