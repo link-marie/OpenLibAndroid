@@ -1,29 +1,5 @@
 apply plugin: 'com.android.library'
 
-ext {
-    bintrayRepo = 'OpenLinkAndroid'
-    bintrayName = 'OpenLibAndroid'
-
-    publishedGroupId = 'com.linknext.libopen'
-    libraryName = 'libOpenAndroid'
-    artifact = 'OpenLibAndroid'
-
-    libraryDescription = 'Useful library for android development'
-
-    siteUrl = 'https://github.com/link-marie/OpenLibAndroid'
-    gitUrl = 'https://github.com/link-marie/OpenLibAndroid.git'
-
-    libraryVersion = LIB_VERSION_NAME
-
-    developerId = 'link-marie'
-    developerName = 'RijkMarie'
-    developerEmail = 'rijkmarie@gmail.com'
-
-    licenseName = 'The Apache Software License, Version 2.0'
-    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-    allLicenses = ["Apache-2.0"]
-}
-
 android {
     compileSdkVersion setup.compileSdk
     buildToolsVersion setup.buildTools
@@ -54,6 +30,17 @@ dependencies {
     testCompile 'junit:junit:4.12'
 }
 
+def repo = new File(rootDir, "repository")
 
-//apply from: 'https://raw.githubusercontent.com/link-marie/JCenter/master/installv1.gradle'
-//apply from: 'https://raw.githubusercontent.com/link-marie/JCenter/master/bintrayv1.gradle'
+apply plugin: 'maven'
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository url: "file://${repo.absolutePath}"
+            pom.version = LIB_VERSION_NAME
+            pom.groupId = 'com.linknext.open'
+            pom.artifactId = 'OpenLibAndroid'
+        }
+    }
+}
