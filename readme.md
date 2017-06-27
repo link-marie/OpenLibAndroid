@@ -11,11 +11,13 @@
 ## Easy logging (Debug/Warning/Error) method
 
 - One line statement to log a method (for simple way)
-- Show stack methods for tracing calling sequence
+- Show calling sequence of a method
 - Able to specify any tag
 - Enable/Disable setting of logging for release build
 
 ### Example 1: Just call one line debug method like this:
+
+Not necessary to define "TAG" for each file anymore!
 
 ```java
 
@@ -34,12 +36,11 @@
 
 you will get following log on 'logcat'.
 
-    date-yyyy-mm-dd hh:mm:ss/com.linknext.openlib `D/anyTag: MainActivity.methodCaller`
-
-Not necessary to define "TAG" for each file anymore!
+    yyyy-mm-dd hh:mm:ss D/anyTag: MainActivity.methodCaller
 
 
-### Example 2: Possible to log stack methods for trace callers.
+
+### Example 2: Log calling sequence
 
  ```java
  
@@ -63,7 +64,7 @@ Not necessary to define "TAG" for each file anymore!
 
 Both *methodCaller()* and *methodUpper()* are logged like this.
 
-    date-yyyy-mm-dd hh:mm:ss/com.linknext.openlib `D/anyTag: MainActivity.methodCaller; MainActivity.methodUpper`
+    yyyy-mm-dd hh:mm:ss D/anyTag: MainActivity.methodCaller; MainActivity.methodUpper
 
 Very useful to determine who is calling the target method.
 
